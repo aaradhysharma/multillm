@@ -1,0 +1,17 @@
+# Multi-LLM Query Tool - API Keys Configuration
+# Copy this file to .env and add your actual API keys
+
+# OpenAI (Required - used for GPT models and as judge LLM)
+OPENAI_API_KEY=sk-your-openai-api-key-here
+
+# Anthropic (Optional - for Claude models)
+ANTHROPIC_API_KEY=your-anthropic-api-key-here
+
+# Google (Optional - for Gemini models)
+GOOGLE_API_KEY=your-google-api-key-here
+
+# Cohere (Optional - for Command models)
+COHERE_API_KEY=your-cohere-api-key-here
+
+# Note: At minimum, you need OPENAI_API_KEY for the tool to work
+# The more API keys you provide, the more LLMs will be queried 
