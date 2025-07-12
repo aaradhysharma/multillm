@@ -104,6 +104,29 @@ class CohereClient(LLMClient):
         except Exception as e:
             return "", f"Cohere Error: {str(e)}"
 
+class GrokClient(LLMClient):
+    def __init__(self, config: LLMConfig):
+        super().__init__(config)
+        self.client = openai.AsyncOpenAI(
+            api_key=self.api_key,
+            base_url="https://api.x.ai/v1"
+        )
+    
+    async def query(self, prompt: str) -> Tuple[str, str]:
+        try:
+            response = await self.client.chat.completions.create(
+                model=self.config.model,
+                messages=[
+                    {"role": "system", "content": SYSTEM_PROMPT},
+                    {"role": "user", "content": prompt}
+                ],
+                max_tokens=self.config.max_tokens,
+                temperature=self.config.temperature
+            )
+            return response.choices[0].message.content, ""
+        except Exception as e:
+            return "", f"Grok Error: {str(e)}"
+
 class LLMClientFactory:
     """Factory for creating appropriate LLM clients"""
     
@@ -118,6 +141,8 @@ class LLMClientFactory:
             return GoogleClient(config)
         elif "command" in config.model.lower() or "cohere" in config.name.lower():
             return CohereClient(config)
+        elif "grok" in config.model.lower() or "xai" in config.name.lower():
+            return GrokClient(config)
         else:
             # Default to OpenAI for unknown models
             return OpenAIClient(config)

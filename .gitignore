@@ -50,3 +50,4 @@ logs/
 # API keys and secrets
 secrets.txt
 api_keys.txt 
+.vercel

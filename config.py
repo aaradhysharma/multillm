@@ -51,6 +51,13 @@ class Config:
             model="gpt-3.5-turbo",
             max_tokens=4000,
             temperature=0.7
+        ),
+        LLMConfig(
+            name="xAI Grok",
+            api_key_env="GROK_API_KEY",
+            model="grok-beta",
+            max_tokens=4000,
+            temperature=0.7
         )
     ]
     
